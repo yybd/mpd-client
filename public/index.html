@@ -1,0 +1,49 @@
+<html>
+  <head>
+    <title>מוזיקה</title>
+    <style>
+
+      #list { list-style-type: none; margin: 0; padding: 0; }
+      #list li { padding: 10px 20px; }
+      #list li:nth-child(odd) { background: #eee; }
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages li { padding: 2px 5px; }
+      #messages li:nth-child(odd) { background: #eee; }
+    </style>
+    <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="-1">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.4/themes/flick/jquery-ui.css">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/bootstrap.min.js"></script>
+
+    <script src="js/mustache.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+
+
+    <script src="js/api.js"></script>
+    <script src="js/script.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+
+  </head>
+   <body>
+     <button onclick="next()"><</button>
+     <button onclick="playState()" id="play"></button>
+     <button onclick="previous()">></button>
+     <button onclick="stopState()">stop</button>
+     <button onclick="randomState()" id="random">random</button>
+     <button onclick="repeatState()" id="repeat">repeat</button>
+     <input type="text" ondblclick="volume(this.value)" id="vol"></button>
+     <input type="text" ondblclick="seekcur(this.value)" id="seekcur"></button>
+     <div id="elapsedTime" data-time=""></div>
+     <div id="playtime"></div>
+     <div id="Title"></div>
+     <div id="Artist"></div>
+     <div id="Album"></div>
+     <ul id="messages"></ul>
+   </body>
+</html>
