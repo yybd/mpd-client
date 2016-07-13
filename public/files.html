@@ -1,0 +1,54 @@
+<div class="container header">
+  <div class="row">
+    <div class="col-xs-3 text-left" id=""><div class="lbl-files">Files</div></div>
+
+    <div class="col-xs-6 text-left form-inline" id="">
+      <select class="form-control" id="sel-type-files">
+        <option>Artist</option>
+        <option>Album</option>
+        <option>Title</option>
+        <option>any</option>
+      </select>
+      <input class="form-control" type="text" id="find-files" placeholder="Find"></input>
+    </div>
+
+      <div class="col-xs-3 text-right" id="">
+        <div class=" glyphicon glyphicon-refresh  update button"></div>
+        <div class=" glyphicon glyphicon-arrow-left dir-back button"></div>
+        <div class=" glyphicon glyphicon-home dir-home button"></div>
+
+      </div>
+
+    </div>
+</div>
+<div class="h-scroll pre-scrollable">
+{{#list.dirs}}
+<div class="container  list">
+  <li class="row">
+        <div class="col-xs-1 icon-file glyphicon glyphicon-folder-open" id=""></div>
+        <div class="col-xs-9 dir" data-dir="{{directory}}" id="">{{dirName}}</div>
+        <div class="col-xs-2  text-right">
+          <div class="glyphicon glyphicon-play add-dir-play button" data-file="{{directory}}"  id=""></div>
+          <div class="glyphicon glyphicon-plus  add-dir button" data-dir="{{directory}}" id=""></div>
+        </div>
+
+
+  </li>
+</div>
+{{/list.dirs}}
+{{#list.files}}
+<div class="container list">
+  <li class="row ">
+      <div class=" " id="">
+        <div class="col-xs-1 ico glyphicon glyphicon-music" id=""></div>
+        <div class="col-xs-9 file" data-file="{{file}}" id=""> <b>{{fileName}}</b> / {{Artist}} / {{Album}}</div>
+        <div class="col-xs-2  text-right">
+          <div class="glyphicon glyphicon-plus add-file button" data-file="{{file}}"  id=""></div>
+          <div class="glyphicon glyphicon-play add-file-play button" data-file="{{file}}"  id=""></div>
+        </div>
+
+      </div>
+  </li>
+</div>
+{{/list.files}}
+</div>

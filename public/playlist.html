@@ -1,0 +1,28 @@
+
+<div class="container header ">
+  <div class="row">
+    <div class="col-xs-3 text-left" id=""><div class="lbl-playlist">Playlist</div></div>
+    <div class="col-xs-8 text-left form-inline" id="">
+      <select class="form-control" id="sel-type-playlist">
+        <option>Artist</option>
+        <option>Album</option>
+        <option>Title</option>
+      </select>
+      <input class="form-control" type="text" id="find-playlist" placeholder="Find"></input>
+    </div>
+    <div class="col-xs-1 " id=""><div class=" glyphicon glyphicon-trash remove-allplaylist button"></div></div>
+</div>
+</div>
+<div class="h-scroll">
+  {{#songs}}
+  <div class="container list" id="{{Pos}}">
+    <li class="row " >
+        <div class="col-xs-12 " id="">
+          <div class="col-xs-1  song-playlist" >{{Num}}</div>
+          <div class="col-xs-10  song-playlist" data-file="{{file}}" data-pos="{{Pos}}" id=""><b>{{Title}}</b> / {{Artist}} / {{Album}}</div>
+          <div class="col-xs-1  text-right"  id=""><div class="glyphicon glyphicon-remove  remove-playlist button" data-pos="{{Pos}}"></div></div>
+        </div>
+    </li>
+  </div>
+  {{/songs}}
+</div>

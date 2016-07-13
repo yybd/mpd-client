@@ -1,0 +1,35 @@
+
+
+<div class="container">
+  <div class="row">
+      <div class="col-xs-12 text-center" id="">
+
+        <div class="row">
+          <div class="tag-song">{{artist}}</div>
+        </div>
+        <div class="row">
+          <div class="tag-song title">{{title}}</div>
+        </div>
+        <div class="row">
+          <div class="tag-song">{{album}}</div>
+        </div>
+
+        <div class="row">
+           <div class="glyphicon glyphicon glyphicon glyphicon-repeat paly-state {{repeat}} button" id="repeat"  ></div>
+          <div class="glyphicon glyphicon glyphicon-stop paly-state button" id="stop"></div>
+          <div class="glyphicon glyphicon glyphicon glyphicon-random paly-state {{random}} button" id="random"></div>
+
+
+        </div>
+        <div class="range row">
+          <div class=" col-xs-2 " id=""></div>
+          <div class=" col-xs-1 text-right time-lbl" id="">{{timesec}}</div>
+          <div class="range col-xs-6"><input type="range" id="elapsedTime" value="{{elapsedTime}}" data-time="{{elapsedTime}}" max="{{time}}" ></input></div>
+          <div class=" col-xs-1 text-left time-lbl" id="elapsedTimelbl">{{elapsedTimesec}}</div>
+          <div class=" col-xs-2 " id=""></div>
+        </div>
+
+
+      </div>
+  </div>
+</div>
