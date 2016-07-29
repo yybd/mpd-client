@@ -66,7 +66,7 @@ message - a message was received on a channel this client is subscribed to; this
 
 
 client.on('system', function(name) {
-  console.log("update", name);
+  console.log("update system: ", name);
 });
 
 client.on('system-player', function() {
@@ -142,7 +142,7 @@ function getStats(){
   client.sendCommand(cmd("stats", []), function(err, msg) {
     if (err) io.emit('error', err);
     var response = mpd.parseKeyValueMessage(msg);
-    res.send(msg);
+    //res.send(msg);
     io.emit('stats', response);
   });
 }
@@ -170,7 +170,7 @@ app.get('/api/connect',function(req, res){
 app.get('/api/play',function(req, res){
   client.sendCommand(cmd("play", []), function(err, msg) {
     if (err) io.emit('error', err);
-    console.log(msg);
+    console.log("play: " + msg);
     res.send(msg);
     io.emit('play', msg);
   });
@@ -179,7 +179,7 @@ app.get('/api/play',function(req, res){
 app.get('/api/playid/:id',function(req, res){
   client.sendCommand(cmd("play", [req.params.id]), function(err, msg) {
     if (err) io.emit('error', err);
-    console.log(msg);
+    console.log("playid: " + msg);
     res.send(msg);
     io.emit('play', msg);
   });
@@ -188,7 +188,7 @@ app.get('/api/playid/:id',function(req, res){
 app.get('/api/playpos/:pos',function(req, res){
   client.sendCommand(cmd("play", [req.params.pos]), function(err, msg) {
     if (err) io.emit('error', err);
-    console.log(msg);
+    console.log("playpus: " + msg);
     res.send(msg);
     io.emit('play', msg);
   });
@@ -198,7 +198,7 @@ app.get('/api/playpos/:pos',function(req, res){
 app.get('/api/pause/:onoff',function(req, res){
   client.sendCommand(cmd("pause", [req.params.onoff]), function(err, msg) {
     if (err) io.emit('error', err);
-    console.log(msg);
+    console.log("pause" + msg);
     res.send(msg);
     io.emit('pause', msg);
   });
@@ -207,7 +207,7 @@ app.get('/api/pause/:onoff',function(req, res){
 app.get('/api/stop',function(req, res){
   client.sendCommand(cmd("stop", []), function(err, msg) {
     if (err) io.emit('error', err);
-    console.log(msg);
+    console.log("stop" + msg);
     var response = mpd.parseKeyValueMessage(msg);
     var on = response.state == "play";
     res.send(on);
@@ -218,7 +218,7 @@ app.get('/api/stop',function(req, res){
 app.get('/api/next',function(req, res){
   client.sendCommand(cmd("next", []), function(err, msg) {
     if (err) io.emit('error', err);
-    console.log(msg);
+    console.log("next" + msg);
     res.send(msg);
     io.emit('next', msg);
   });
@@ -227,7 +227,7 @@ app.get('/api/next',function(req, res){
 app.get('/api/previous',function(req, res){
   client.sendCommand(cmd("previous", []), function(err, msg) {
     if (err) io.emit('error', err);
-    console.log(msg);
+    console.log( "previous"+ msg);
     res.send(msg);
     io.emit('previous', msg);
   });
@@ -236,7 +236,7 @@ app.get('/api/previous',function(req, res){
 app.get('/api/seekid/:id/:time',function(req, res){
   client.sendCommand(cmd("seekid", [req.params.id, req.params.time]), function(err, msg) {
     if (err) io.emit('error', err);
-    console.log(msg);
+    console.log("seekid" + msg);
     res.send(msg);
     io.emit('seekid', msg);
   });
@@ -245,7 +245,7 @@ app.get('/api/seekid/:id/:time',function(req, res){
 app.get('/api/seekcur/:time',function(req, res){
   client.sendCommand(cmd("seekcur", [req.params.time]), function(err, msg) {
     if (err) io.emit('error', err);
-    console.log(msg);
+    console.log("seekcur" + msg);
     res.send(msg);
     io.emit('seekcur', msg);
   });
@@ -255,7 +255,7 @@ app.get('/api/seekcur/:time',function(req, res){
 app.get('/api/volume/:vol',function(req, res){
   client.sendCommand(cmd("setvol", [req.params.vol]), function(err, msg) {
     if (err) io.emit('error', err);
-    console.log(msg);
+    console.log("setvol" + msg);
     var response = mpd.parseKeyValueMessage(msg);
     var volume = response.volume;
     res.send(volume);
@@ -266,7 +266,7 @@ app.get('/api/volume/:vol',function(req, res){
 app.get('/api/repeat/:onoff',function(req, res){
   client.sendCommand(cmd("repeat", [req.params.onoff]), function(err, msg) {
     if (err) io.emit('error', err);
-    console.log(msg);
+    console.log("repeat" + msg);
     res.send(msg);
     io.emit('repeat', msg);
   });
@@ -275,27 +275,27 @@ app.get('/api/repeat/:onoff',function(req, res){
 app.get('/api/random/:onoff',function(req, res){
   client.sendCommand(cmd("random", [req.params.onoff]), function(err, msg) {
     if (err) io.emit('error', err);
-    console.log(msg);
+    console.log("random"+  msg);
     res.send(msg);
     io.emit('random', msg);
   });
 });
 //When single is activated, playback is stopped after current song, or song is repeated if the 'repeat' mode is enabled.
 app.get('/api/single/:onoff',function(req, res){
-  client.sendCommand(cmd("repeat", [req.params.onoff]), function(err, msg) {
+  client.sendCommand(cmd("single", [req.params.onoff]), function(err, msg) {
     if (err) io.emit('error', err);
-    console.log(msg);
+    console.log("single"+ msg);
     res.send(msg);
     io.emit('single', msg);
   });
 });
 //When consume is activated, each song played is removed from playlist.
 app.get('/api/consume/:onoff',function(req, res){
-  client.sendCommand(cmd("repeat", [req.params.onoff]), function(err, msg) {
+  client.sendCommand(cmd("consume", [req.params.onoff]), function(err, msg) {
     if (err) io.emit('error', err);
-    console.log(msg);
+    console.log("consume" + msg);
     res.send(msg);
-    io.emit('setvol', msg);
+    io.emit('consume', msg);
   });
 });
 
@@ -345,7 +345,7 @@ app.get('/api/playlistinfo',function(req, res){
     var response = mpd.parseListAllInfoResult(msg);
 
     res.send(msg);
-    console.log(msg);
+    console.log("playlistinfo" + msg);
     io.emit('playlistinfo', response);
   });
 });
@@ -371,9 +371,12 @@ app.get('/api/deleteid/:id',function(req, res){
 app.get('/api/delete/:pos',function(req, res){
   client.sendCommand(cmd("delete", [req.params.pos]), function(err, msg) {
     if (err) io.emit('error', err);
-    var response = mpd.parseArrayMessage(msg);
-    res.send(msg);
-    io.emit('delete', response);
+    if(msg || msg.indexOf('\n')){
+      var response = mpd.parseArrayMessage(msg);
+      res.send(msg);
+      io.emit('delete', response);
+    }
+
   });
 });
 
@@ -389,7 +392,7 @@ app.get('/api/add/:uri',function(req, res){
 app.get('/api/add_play/:uri/:pus',function(req, res){
   //console.log('add_play');
   client.sendCommands([cmd("add", [req.params.uri]), cmd("play", [req.params.pus])], function(err, msg) {
-    if (err) {io.emit('error', err);console.log(err);}
+    if (err) {io.emit('error', err);console.log('error' + err);}
     //var response = mpd.parseArrayMessage(msg);
     res.send(msg);
     io.emit('add paly', msg);
@@ -399,11 +402,14 @@ app.get('/api/add_play/:uri/:pus',function(req, res){
 app.get('/api/playlistfind/:tag/:needle',function(req, res){
   //console.log('add_play');
   client.sendCommand(cmd("playlistfind", [req.params.tag, req.params.needle]), function(err, msg) {
-    if (err) {io.emit('error', err);console.log(err);}
-    var response = mpd.parseListAllInfoResult(msg);
-    res.send(msg);
-    console.log(msg);
-    io.emit('playlistfind', response);
+    if (err) {io.emit('error', err);console.log('error' + err);}
+    if(msg ){
+      var response = mpd.parseArrayMessage(msg);
+      res.send(msg);
+      console.log("playlistfind" + msg);
+      io.emit('playlistfind', response);
+    }
+
   });
 });
 
@@ -412,7 +418,7 @@ app.get('/api/playlistfind/:tag/:needle',function(req, res){
 app.get('/api/update',function(req, res){
   client.sendCommand(cmd("update", []), function(err, msg) {
     if (err) io.emit('error', err);
-    console.log(msg);
+    console.log("update: " + msg);
     var response = (undefined != msg)? response = mpd.parseKeyValueMessage(msg): "";
     res.send(msg);
     io.emit('update', response);
@@ -422,27 +428,36 @@ app.get('/api/update',function(req, res){
 app.get('/api/listfiles/:uri',function(req, res){
   client.sendCommand(cmd("listfiles", [req.params.uri]), function(err, msg) {
     if (err) io.emit('error', err);
-    var response = mpd.parseArrayMessage(msg);
-    res.send(msg);
-    io.emit('listfiles', response);
+    if(msg ){
+      var response = mpd.parseArrayMessage(msg);
+      res.send(msg);
+      io.emit('listfiles', response);
+    }
+
   });
 });
 
 app.get('/api/lsinfo/:uri',function(req, res){
   client.sendCommand(cmd("lsinfo", [req.params.uri]), function(err, msg) {
     if (err) io.emit('error', err);
-    var response = mpd.parseArrayMessage(msg);
-    res.send(msg);
-    io.emit('lsinfo', response);
+    if(msg){
+      var response = mpd.parseArrayMessage(msg);
+      res.send(msg);
+      io.emit('lsinfo', response);
+    }
+
   });
 });
 
 app.get('/api/find/:type/:what',function(req, res){
   client.sendCommand(cmd("find", [req.params.type, req.params.what]), function(err, msg) {
     if (err) io.emit('error', err);
-    var response = mpd.parseArrayMessage(msg);
-    res.send(msg);
-    io.emit('find', response);
+      if(msg){
+        var response = mpd.parseArrayMessage(msg);
+        res.send(msg);
+        io.emit('find', response);
+      }
+
   });
 });
 
@@ -456,6 +471,6 @@ app.get('/api/find/:type/:what',function(req, res){
 
 
 
-http.listen(3007, function(){
-  console.log('listening on *:3007');
+http.listen(80, function(){
+  console.log('listening on *:80');
 });

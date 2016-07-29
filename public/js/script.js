@@ -270,8 +270,8 @@ function secondstotime(secs)
 ///
 
 
-var rootDir = "USB/TRANSSCEND_/MUSIC";
-
+//var rootDir = "USB/TRANSSCEND_/MUSIC";
+var rootDir = "pi";
 
 
 $(document).ready(function () {
@@ -281,6 +281,7 @@ $(document).ready(function () {
   getCurrentsong();
   $("#files").on("click", function(){
     if(!isDir){
+      console.log(rootDir)
       lsinfo(rootDir);
     }
     else {

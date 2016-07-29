@@ -165,9 +165,10 @@ function listfiles(uri){
   $.get("/api/listfiles/"+ encodeURIComponent(uri) , function(data, status){});
 }
 
-var isDir ;
+var isDir = localStorage.getItem("isDir");
 function lsinfo(uri){
   isDir =  uri;
+  localStorage.setItem('isDir', isDir);
   $.get("/api/lsinfo/"+ encodeURIComponent(uri) , function(data, status){});
 }
 
@@ -200,7 +201,7 @@ socket.on('status', function(v){
          setCurrentsong(v);
       });
       socket.on('update', function(v){
-           update(v);
+           //update(v);
         });
         socket.on('database', function(){
              database();
