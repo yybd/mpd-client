@@ -17,6 +17,11 @@ var wiewplay = {
   "playlistlength": 0
 };
 
+var max_palylist = 200;
+
+var msg_maxpalylist = "יותר מדאי שירים";
+var msg_addpalylist = "נוספו שירים";
+
 function setStatus(v){
   wiewplay.volume = v.volume;
   var t = (v.elapsed)? parseInt(v.elapsed): "";
@@ -190,20 +195,50 @@ function wiewFiles(list){
       $('#contect').html(rendered);
 
       $(".add-dir").on("click", function(){
-        addPlaylist($(this).attr('data-dir'));
+        console.log(parseInt(wiewplay.playlistlength) + 1)
+        if(wiewplay.playlistlength < max_palylist){
+          addPlaylist($(this).attr('data-dir'));
+          $.notify("שירים נוספו", "success");
+        }
+        else{
+          console.log("cent add to playlist length: "   + wiewplay.playlistlength);
+          $.notify(msg_maxpalylist, "error");
+        }
       });
       $(".add-file").on("click", function(){
         //console.log($(this).attr('data-file'));
-        addPlaylist($(this).attr('data-file'));
+        console.log(parseInt(wiewplay.playlistlength) + 1)
+        if(wiewplay.playlistlength < max_palylist){
+          addPlaylist($(this).attr('data-file'));
+          $.notify(msg_addpalylist, "success");
+        }
+        else{
+          console.log("cent add to playlist length: "  + wiewplay.playlistlength);
+          $.notify(msg_maxpalylist, "error");
+        }
       });
       $(".add-dir-play").on("click", function(){
         //console.log($(this).attr('data-file'));
         console.log(parseInt(wiewplay.playlistlength) + 1)
-        addPlaylistPlay($(this).attr('data-file') ,parseInt(wiewplay.playlistlength) );
+        if(wiewplay.playlistlength < max_palylist){
+          addPlaylistPlay($(this).attr('data-file') ,parseInt(wiewplay.playlistlength) );
+          $.notify(msg_addpalylist, "success");
+        }
+        else{
+          console.log("playlist length: " + wiewplay.playlistlength);
+          $.notify(msg_maxpalylist, "error");
+        }
       });
       $(".add-file-play").on("click", function(){
         //console.log($(this).attr('data-file'));
-        addPlaylistPlay($(this).attr('data-file'), parseInt(wiewplay.playlistlength) );
+        if(wiewplay.playlistlength < max_palylist){
+          addPlaylistPlay($(this).attr('data-file'), parseInt(wiewplay.playlistlength) );
+          $.notify(msg_addpalylist, "success");
+        }
+        else{
+          console.log("cent add to playlist length: " + wiewplay.playlistlength);
+          $.notify(msg_maxpalylist, "error");
+        }
       });
       $(".file").on("click", function(){
         //addPlaylist($(this).attr('data-dir'));
@@ -271,7 +306,7 @@ function secondstotime(secs)
 
 
 //var rootDir = "USB/TRANSSCEND_/MUSIC";
-var rootDir = "pi";
+var rootDir = "/";
 
 
 $(document).ready(function () {
